@@ -8,5 +8,8 @@ public class Node<T> {
 	public Node(T inputElement){
 		this.element = inputElement;
 	}
+	public T getElement() {
+		return element;
+	}
 
 }

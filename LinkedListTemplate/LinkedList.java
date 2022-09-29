@@ -1,10 +1,27 @@
 package LinkedListTemplate;
 
+import java.util.concurrent.Callable;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 public class LinkedList<T>{
 	int size;
 	Node<T> head = null;
 	Node<T> tail = null;
 	
+	public int getSize() {
+		return size;
+	}	
+
+	public void forEach(Predicate<Node<T>> p) {
+		Node<T> target = head;
+		Boolean run = true;
+		for (int i = 0; i < size && run;i++) {
+			run = p.test(target);
+			target = target.next;
+		}
+	}
+
 	public void addFirst(T element){
 		Node<T> newNode = new Node<T>(element);
 		
