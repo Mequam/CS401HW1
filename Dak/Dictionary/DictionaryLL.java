@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 
 public class DictionaryLL extends Dictionary {
-    private LinkedList<Entry> l;
+    private LinkedList<Entry> l = new LinkedList<Entry>();
 
     public DictionaryLL(String f) {
         File nf = new File(f);
@@ -17,7 +17,8 @@ public class DictionaryLL extends Dictionary {
             fc = new Scanner(f);
             while (fc.hasNextLine()) {
                 String entry = fc.nextLine();
-                l.addFirst(new Entry(entry));
+                if (!entry.equals(""))
+                    l.addFirst(new Entry(entry));
             }
         }
         catch (Exception e) {
@@ -29,7 +30,6 @@ public class DictionaryLL extends Dictionary {
                 fc.close();
             }
         }
-
     }
     public DictionaryLL(File f) {
         load(f);

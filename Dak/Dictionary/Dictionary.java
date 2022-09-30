@@ -20,6 +20,8 @@ public abstract class Dictionary {
         */
         public Entry(String tab_entry) {
             String [] splt_entry = tab_entry.split("\t");
+
+
             load(splt_entry[0],splt_entry[1]);
         }
 

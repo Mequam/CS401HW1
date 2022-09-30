@@ -10,7 +10,7 @@ remake: clean build
 run: build
 	echo '[*] running the program'
 	echo
-	java LinkedList/TestLinkedList
+	java Dak/Dictionary/DictionaryLLTest
 build:
 	find . -name \*.java > to_build.txt
 	javac @to_build.txt

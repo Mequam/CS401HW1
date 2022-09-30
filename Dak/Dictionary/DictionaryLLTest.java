@@ -1,8 +1,7 @@
 package Dak.Dictionary;
 
 public class DictionaryLLTest {
-    int main() {
-        DictionaryLLTest d = new DictionaryLLTest();
-        return 1;
+    public static void main(String [] args) {
+        DictionaryLL d = new DictionaryLL("Dictionary.txt");
     }
 }
