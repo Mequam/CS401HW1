@@ -3,7 +3,7 @@ package Dak.Dictionary;
 /** interface for objects that provide the behavior of a dictionary */
 public abstract class Dictionary {
     /** represents a single entry stored inside of the dictionary*/
-    public class Entry implements Comparable<Entry>{
+    public static class Entry implements Comparable<Entry>{
         public String word;
         public String definition;
         private void load(String word, String definition) {
@@ -25,6 +25,10 @@ public abstract class Dictionary {
             load(splt_entry[0],splt_entry[1]);
         }
 
+        public int length() {
+            return word.length() + definition.length();
+        }
+
        /** Compares to entries
         * Note: null is less than ALL other values */ 
         @Override
@@ -40,6 +44,11 @@ public abstract class Dictionary {
             } 
 
             return word.compareTo(other.word);
+        }
+
+        @Override
+        public String toString() {
+            return word + "\t" + definition;
         }
     }
 
