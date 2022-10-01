@@ -37,7 +37,6 @@ public class DictionaryProtocol {
             buff[i] = data[i];
         }
         return buff;
-
     }
     
     public static final Packet decode(byte [] data) {
@@ -154,6 +153,8 @@ public class DictionaryProtocol {
             data = word;
         }
         public GETPacket(Byte [] data) {
+            this.verb = Verb.GET;
+
             byte [] strBuffer = new byte[data.length];
             for (int i = 0; i < strBuffer.length;i++) {
                 strBuffer[i] = data[i];
