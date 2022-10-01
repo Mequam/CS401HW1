@@ -55,8 +55,6 @@ public class DictionaryNetClient extends Dictionary {
         try { //ugly java try catch is ugly :(
 
             Byte [] data = (new DictionaryProtocol.GETPacket(word)).encode();
-            System.out.println(data);
-            System.out.print(DictionaryProtocol.Packet.decode(data));
             out_link.write(
                 DictionaryProtocol.Packet.unbox(data)
             );

@@ -54,11 +54,7 @@ public class DictionaryServer extends Thread {
                 Packet p = DictionaryProtocol.Packet.decode(connection_buffer);
                 if (p.verb == Verb.GET) {
                         String test = ((GETPacket)p).data;
-                        System.out.println("Returning Definition of " + test + "_");
                         Entry def = this.dictionary.getEntry(test);
-
-                    System.out.println("found definition");                        
-                    System.out.println(def);
 
                     if (def == null) { //tell the client their word does not exist
                         link_out.write(
