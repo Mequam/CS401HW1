@@ -1,9 +1,12 @@
 package Dak.Dictionary.Net;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.io.*;
 
+import Dak.Dictionary.DictionaryLL;
 import Dak.Dictionary.Net.DictionaryProtocol.Packet;
 
 /** 
@@ -13,10 +16,27 @@ import Dak.Dictionary.Net.DictionaryProtocol.Packet;
 */
 public class DictionaryServer extends Thread {
     DataInputStream link;
-    
-    DictionaryServer(Socket s) {
+    DataOutputStream link_out;
+
+    DictionaryLL dictionary;
+
+
+    DictionaryServer(Socket s,File f) {
+        dictionary = new DictionaryLL(f);
+        load_socket(s);
+    }
+
+
+    DictionaryServer(Socket s,String dictionary_fpath) {
+        dictionary = new DictionaryLL(dictionary_fpath);
+        load_socket(s);
+    }
+
+    private void load_socket(Socket s) {
+
         try {
             this.link = new DataInputStream(s.getInputStream());
+            this.link_out = new DataOutputStream(s.getOutputStream());
         }
         catch (Exception e) {
             System.out.print(e);
@@ -31,7 +51,7 @@ public class DictionaryServer extends Thread {
             try {
                 int amount = link.read(connection_buffer);
                 Packet p = DictionaryProtocol.Packet.decode(connection_buffer);
-                System.out.println(p.verb);
+                
 
             } catch (Exception e) {
                 System.out.println(e);

@@ -11,7 +11,7 @@ public class DictionaryNetTest {
         try {
             ServerSocket s = new ServerSocket(2644);
             
-            DictionaryServer ds = new DictionaryServer(s.accept());
+            DictionaryServer ds = new DictionaryServer(s.accept(),"Dictionary.txt");
             ds.start(); //actually start the server
         }
         catch (Exception e) {

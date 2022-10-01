@@ -58,9 +58,7 @@ public class DictionaryNetClient extends Dictionary {
             System.out.println(data);
             System.out.print(DictionaryProtocol.Packet.decode(data));
             out_link.write(
-                DictionaryProtocol.Packet.unbox(
-                   data
-                    )
+                DictionaryProtocol.Packet.unbox(data)
             );
         }
         catch (Exception e ) {
