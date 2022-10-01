@@ -15,6 +15,34 @@ public class DictionaryProtocol {
     protected Verb verb;
     protected Packet() {
     }
+    public static byte [] unbox(Byte [] data) {
+        return unbox(data,data.length);
+    }
+
+    /** converts a non primative byte array to a primative one*/
+    public static byte [] unbox(Byte [] data,int n) {
+        byte [] buff = new byte [n];
+        for (int i = 0; i < buff.length;i++) {
+            buff[i] = data[i];
+        }
+        return buff;
+    }
+    /** converts a primative byte array to a boxed one */
+    public static Byte [] box(byte [] data) {
+        return box(data,data.length);
+    }
+    public static Byte [] box(byte [] data, int n) {
+        Byte [] buff = new Byte [n];
+        for (int i = 0; i < buff.length;i++) {
+            buff[i] = data[i];
+        }
+        return buff;
+
+    }
+    
+    public static final Packet decode(byte [] data) {
+        return decode(box(data));
+    }
 
     public static final Packet decode(Byte [] data) {
         Byte [] local_buffer = new Byte[data.length - 1];
