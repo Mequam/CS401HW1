@@ -13,9 +13,36 @@ public class DictionaryProtocol {
 
    public class ProtocolPacket {
     protected Verb verb;
-    public ProtocolPacket() {
-
+    protected ProtocolPacket() {
     }
+
+    /** decodes the given bytes in place and fills out the current packet object*/
+    //public abstract ProtocolPacket decode(byte [] b);
+
+    /** encodes this packet */
+    public Byte [] encode() {
+        Byte [] enc_buffer = localEncode();
+        Byte [] ret_val = new Byte[enc_buffer.length + 1];
+
+        
+        ret_val[0] = (byte)(verb.ordinal());
+
+        for (int i = 0; i < enc_buffer.length;i++)
+            ret_val[i + 1] = enc_buffer[i];
+        
+        return ret_val;
+    }    
+
+    /** 
+     * different packet types overload this class to encode their data
+     * and then this packet super type wraps that data in its encode function
+     * while attaching additional data to be sent over the network (e.g. verb)
+     */
+    Byte [] localEncode() {
+        return new Byte [0];
+    }
+
+
     /** generate a new protocol packet for the given byte data */
     ProtocolPacket(Byte [] b) {
         //the first byte of the packet is the verb, we parse that out in this
@@ -67,9 +94,18 @@ public class DictionaryProtocol {
    }
 
    public class OKPacket extends ProtocolPacket {
+        Dictionary.Entry data;
         public OKPacket(Dictionary.Entry e) {
             this.verb = Verb.OK;
-        }    
-
+            this.data = e;
+        }
+        /**
+         * to encode an ok packet, we send over the data corrisponding to
+         * the entry
+        */
+        @Override
+        Byte [] localEncode() {
+            return ProtocolPacket.encodeEntry(data);
+        }
    }
 }
