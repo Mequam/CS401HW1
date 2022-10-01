@@ -80,10 +80,6 @@ public class DictionaryNetClient extends Dictionary {
             System.out.println(e);
             System.exit(0);
         }
-
-
-        
-
         
         return null;
     }

@@ -45,9 +45,8 @@ public class DictionaryLL extends Dictionary {
                 
                 return false;
             });
-            
-            
-            ret_val = node.getElement();
+            if (node != null)
+                ret_val = node.getElement();
             return ret_val;
     }
     @Override

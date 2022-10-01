@@ -6,8 +6,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.*;
 
+
 import Dak.Dictionary.DictionaryLL;
-import Dak.Dictionary.Net.DictionaryProtocol.Packet;
+import Dak.Dictionary.Dictionary.Entry;
+import Dak.Dictionary.Net.DictionaryProtocol.*;
 
 /** 
  * this class serves a SINGLE dictionary client using the protocol
@@ -33,7 +35,6 @@ public class DictionaryServer extends Thread {
     }
 
     private void load_socket(Socket s) {
-
         try {
             this.link = new DataInputStream(s.getInputStream());
             this.link_out = new DataOutputStream(s.getOutputStream());
@@ -51,7 +52,23 @@ public class DictionaryServer extends Thread {
             try {
                 int amount = link.read(connection_buffer);
                 Packet p = DictionaryProtocol.Packet.decode(connection_buffer);
-                
+                if (p.verb == Verb.GET) {
+                        System.out.println("Returning Definition of " + ((GETPacket)p).data);
+                        Entry def = this.dictionary.getEntry(
+                        ((GETPacket)p).data
+                        );
+
+                    if (def == null) { //tell the client their word does not exist
+                        link_out.write(
+                            Packet.unbox(new NULLPacket().encode())
+                        );
+                    }
+                    else {
+                        link_out.write(
+                            Packet.unbox(new OKPacket(def).encode())
+                        );
+                    }
+                }
 
             } catch (Exception e) {
                 System.out.println(e);

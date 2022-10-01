@@ -9,6 +9,6 @@ import java.net.InetSocketAddress;
 public class DictionaryNetClientTest {
         public static void main(String [] args) {
             DictionaryNetClient dnc = new DictionaryNetClient(new InetSocketAddress("localhost",2644)); 
-            dnc.getEntry("test");
+            System.out.println(dnc.getEntry("computer"));
         }
 }
