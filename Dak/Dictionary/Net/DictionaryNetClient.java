@@ -4,6 +4,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketAddress;
 
+import javax.swing.plaf.synth.SynthDesktopIconUI;
+
 import Dak.Dictionary.*;
 import Dak.Dictionary.Dictionary.Entry;
 import Dak.Dictionary.Net.DictionaryProtocol.Verb;
@@ -30,7 +32,8 @@ public class DictionaryNetClient extends Dictionary {
             s.connect(sa);
         }
         catch (Exception e) {
-            System.out.println(e);
+            System.out.println("[ERROR] unable to connect to dictionary!!");
+            System.out.println("[HINT] is the dictionary server running?");
             System.exit(0);
         }
         
