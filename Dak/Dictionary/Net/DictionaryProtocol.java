@@ -5,16 +5,37 @@ import Dak.Dictionary.Dictionary;
 import Dak.Dictionary.Dictionary.Entry;
 
 public class DictionaryProtocol {
-   enum Verb {
+   public enum Verb {
     GET,
     OK,
     NULL
    };
 
-   public class ProtocolPacket {
+   public static class ProtocolPacket {
     protected Verb verb;
     protected ProtocolPacket() {
     }
+
+    public static final ProtocolPacket decode(Byte [] data) {
+        Byte [] local_buffer = new Byte[data.length - 1];
+        for (int i  = 0 ; i < data.length-1;i++)
+            local_buffer[i] = data[i+1];
+
+        //translate the given integer byte into averb, because
+        //java has sad sad enumerators compared to c++
+        Verb expectVerb = null;
+        int verb_int = Byte.toUnsignedInt(data[0]);
+        if (verb_int < Verb.values().length) {
+            expectVerb = Verb.values()[verb_int];
+        }
+
+        switch (expectVerb) {
+            case OK:
+                return new OKPacket(local_buffer);
+        }
+        return null;
+    }
+
 
     /** decodes the given bytes in place and fills out the current packet object*/
     //public abstract ProtocolPacket decode(byte [] b);
@@ -54,6 +75,7 @@ public class DictionaryProtocol {
             }
         }
     } 
+    /**gets an entry from the given entry bytes */
     public static Entry decodeEntry(Byte [] b) { 
         //get the length of the given word
         int word_size = Byte.toUnsignedInt(b[0]);
@@ -93,8 +115,13 @@ public class DictionaryProtocol {
     }    
    }
 
-   public class OKPacket extends ProtocolPacket {
+   public static class OKPacket extends ProtocolPacket {
         Dictionary.Entry data;
+        
+        public OKPacket(Byte [] b) {
+            this.verb = Verb.OK;
+            data = DictionaryProtocol.ProtocolPacket.decodeEntry(b);
+        }
         public OKPacket(Dictionary.Entry e) {
             this.verb = Verb.OK;
             this.data = e;
