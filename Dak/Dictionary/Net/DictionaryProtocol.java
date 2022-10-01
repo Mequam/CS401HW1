@@ -154,10 +154,14 @@ public class DictionaryProtocol {
         }
         public GETPacket(Byte [] data) {
             this.verb = Verb.GET;
+           
+            //unsigned should only go up to 255, so we should be ok
+            //letting this through
+            int word_size = Byte.toUnsignedInt(data[0]);
+            byte [] strBuffer = new byte[word_size];
 
-            byte [] strBuffer = new byte[data.length];
-            for (int i = 0; i < strBuffer.length;i++) {
-                strBuffer[i] = data[i];
+            for (int i = 0; i < word_size;i++) {
+                strBuffer[i] = data[i+1];
             }
             this.data = new String(strBuffer);
         }
@@ -166,12 +170,13 @@ public class DictionaryProtocol {
             //convert the string encoded data into a data type that we use
             //in the rest of the program
             byte [] local_buffer = this.data.getBytes();
-            Byte [] ret_val = new Byte[local_buffer.length];
-            for (int i = 0; i < ret_val.length;i++)
-                ret_val[i] = local_buffer[i];
+            Byte [] ret_val = new Byte[local_buffer.length + 1];
+            ret_val[0] = (byte)(local_buffer.length);
+
+            for (int i = 0; i < local_buffer.length;i++)
+                ret_val[i + 1] = local_buffer[i];
             
             return ret_val;
-
         }     
     }
   
