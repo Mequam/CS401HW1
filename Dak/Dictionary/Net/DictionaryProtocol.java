@@ -6,9 +6,9 @@ import Dak.Dictionary.Dictionary.Entry;
 
 public class DictionaryProtocol {
    public enum Verb {
-    GET,
-    OK,
-    NULL
+    GET, //we would like to get the following word: contains a single word
+    OK, //we can return that word, contains a length indecator for the word, the word, and the message
+    NULL //we do not have that word in house, empty body
    };
 
    public static class Packet {
@@ -34,6 +34,8 @@ public class DictionaryProtocol {
                 return new OKPacket(local_buffer);
             case GET:
                 return new GETPacket(local_buffer);
+            case NULL:
+                return new NULLPacket();
         }
         return null;
     }
@@ -119,11 +121,11 @@ public class DictionaryProtocol {
 
     public static class GETPacket extends Packet {
         String data = "";
-        GETPacket(String word) {
+        public GETPacket(String word) {
             this.verb = Verb.GET;
             data = word;
         }
-        GETPacket(Byte [] data) {
+        public GETPacket(Byte [] data) {
             byte [] strBuffer = new byte[data.length];
             for (int i = 0; i < strBuffer.length;i++) {
                 strBuffer[i] = data[i];
@@ -143,8 +145,13 @@ public class DictionaryProtocol {
 
         }     
     }
-   
-   public static class OKPacket extends Packet {
+  
+    public static class NULLPacket extends Packet {
+        public NULLPacket() {
+            this.verb = Verb.NULL;
+        }
+    }
+    public static class OKPacket extends Packet {
         Dictionary.Entry data;
         
         public OKPacket(Byte [] b) {
