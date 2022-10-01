@@ -11,12 +11,12 @@ public class DictionaryProtocol {
     NULL
    };
 
-   public static class ProtocolPacket {
+   public static class Packet {
     protected Verb verb;
-    protected ProtocolPacket() {
+    protected Packet() {
     }
 
-    public static final ProtocolPacket decode(Byte [] data) {
+    public static final Packet decode(Byte [] data) {
         Byte [] local_buffer = new Byte[data.length - 1];
         for (int i  = 0 ; i < data.length-1;i++)
             local_buffer[i] = data[i+1];
@@ -38,7 +38,7 @@ public class DictionaryProtocol {
 
 
     /** decodes the given bytes in place and fills out the current packet object*/
-    //public abstract ProtocolPacket decode(byte [] b);
+    //public abstract Packet decode(byte [] b);
 
     /** encodes this packet */
     public Byte [] encode() {
@@ -65,7 +65,7 @@ public class DictionaryProtocol {
 
 
     /** generate a new protocol packet for the given byte data */
-    ProtocolPacket(Byte [] b) {
+    Packet(Byte [] b) {
         //the first byte of the packet is the verb, we parse that out in this
         //function
         if (b.length > 0) {
@@ -115,12 +115,16 @@ public class DictionaryProtocol {
     }    
    }
 
-   public static class OKPacket extends ProtocolPacket {
+   public static class GETPacket extends Packet {
+
+   }
+   
+   public static class OKPacket extends Packet {
         Dictionary.Entry data;
         
         public OKPacket(Byte [] b) {
             this.verb = Verb.OK;
-            data = DictionaryProtocol.ProtocolPacket.decodeEntry(b);
+            data = DictionaryProtocol.Packet.decodeEntry(b);
         }
         public OKPacket(Dictionary.Entry e) {
             this.verb = Verb.OK;
@@ -132,7 +136,7 @@ public class DictionaryProtocol {
         */
         @Override
         Byte [] localEncode() {
-            return ProtocolPacket.encodeEntry(data);
+            return Packet.encodeEntry(data);
         }
    }
 }
