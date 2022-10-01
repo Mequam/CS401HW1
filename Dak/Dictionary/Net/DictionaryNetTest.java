@@ -18,9 +18,5 @@ public class DictionaryNetTest {
             System.out.println(e);
             System.exit(0);
         }
-
-
-
-        DictionaryNetClient dnc = new DictionaryNetClient(new InetSocketAddress("localhost",2644));
     }
 }

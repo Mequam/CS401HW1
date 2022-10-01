@@ -52,7 +52,6 @@ public class DictionaryNetClient extends Dictionary {
     /**gets a given entry from the server*/
     @Override
     public Entry getEntry(String word) {
-        
         try { //ugly java try catch is ugly :(
             out_link.write(
                 DictionaryProtocol.Packet.unbox(
