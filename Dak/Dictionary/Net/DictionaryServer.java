@@ -41,14 +41,13 @@ public class DictionaryServer extends Thread {
         }
         catch (Exception e) {
             System.out.print(e);
-            System.exit(0);
         }
 
     }
 
     public void run() {
         byte [] connection_buffer = new byte[255];
-        while (true){ //TODO: figure out an exit condition for this
+        while (true) {
             try {
                 int amount = link.read(connection_buffer);
                 Packet p = DictionaryProtocol.Packet.decode(connection_buffer);
@@ -70,7 +69,7 @@ public class DictionaryServer extends Thread {
 
             } catch (Exception e) {
                 System.out.println(e);
-                System.exit(0);
+                return; //stop execution of this thread
             }
         }
     }
