@@ -1,6 +1,7 @@
 package Dak.Dictionary.Net;
 
 import Dak.Dictionary.*;
+import Dak.Dictionary.Net.DictionaryProtocol.GETPacket;
 import Dak.Dictionary.Net.DictionaryProtocol.OKPacket;
 import Dak.Dictionary.Net.DictionaryProtocol.Packet;
 
@@ -20,5 +21,8 @@ public class DictionaryProtocolTest {
                 ).encode()
         );
         System.out.println(p.data);
+        
+        GETPacket g = (GETPacket)Packet.decode(new GETPacket("sin").encode());
+        System.out.println(g.data);
     }
 }

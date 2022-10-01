@@ -32,6 +32,8 @@ public class DictionaryProtocol {
         switch (expectVerb) {
             case OK:
                 return new OKPacket(local_buffer);
+            case GET:
+                return new GETPacket(local_buffer);
         }
         return null;
     }
@@ -115,9 +117,32 @@ public class DictionaryProtocol {
     }    
    }
 
-   public static class GETPacket extends Packet {
+    public static class GETPacket extends Packet {
+        String data = "";
+        GETPacket(String word) {
+            this.verb = Verb.GET;
+            data = word;
+        }
+        GETPacket(Byte [] data) {
+            byte [] strBuffer = new byte[data.length];
+            for (int i = 0; i < strBuffer.length;i++) {
+                strBuffer[i] = data[i];
+            }
+            this.data = new String(strBuffer);
+        }
+        @Override
+        Byte [] localEncode() {
+            //convert the string encoded data into a data type that we use
+            //in the rest of the program
+            byte [] local_buffer = this.data.getBytes();
+            Byte [] ret_val = new Byte[local_buffer.length];
+            for (int i = 0; i < ret_val.length;i++)
+                ret_val[i] = local_buffer[i];
+            
+            return ret_val;
 
-   }
+        }     
+    }
    
    public static class OKPacket extends Packet {
         Dictionary.Entry data;
