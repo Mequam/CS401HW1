@@ -13,13 +13,20 @@ public class LinkedList<T>{
 		return size;
 	}	
 
-	public void forEach(Predicate<Node<T>> p) {
+	/** runs the given function on each of the nodes in the ll
+	 * returns the last node that the function was run for
+	 * 
+	 * at any time the caller function may return true to stop the execution from running
+	 */
+	public Node<T> forEach(Predicate<Node<T>> p) {
 		Node<T> target = head;
-		Boolean run = true;
-		for (int i = 0; i < size && run;i++) {
-			run = p.test(target);
-			target = target.next;
+		Boolean stop = false;
+		for (int i = 0; i < size && !stop;i++) {
+			stop = p.test(target);
+			if (!stop)
+				target = target.next;
 		}
+		return target;
 	}
 
 	public void addFirst(T element){

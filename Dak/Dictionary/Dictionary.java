@@ -4,8 +4,8 @@ package Dak.Dictionary;
 public abstract class Dictionary {
     /** represents a single entry stored inside of the dictionary*/
     public class Entry implements Comparable<Entry>{
-        String word;
-        String definition;
+        public String word;
+        public String definition;
         private void load(String word, String definition) {
             this.word = word;
             this.definition = definition;
@@ -57,6 +57,9 @@ public abstract class Dictionary {
 
     /** returns the definition for a given word */ 
     public String definition(String word) {
-        return getEntry(word).definition;
+        Entry e = getEntry(word);
+        if (e != null)
+            return e.definition;
+        return null;
     }
 }

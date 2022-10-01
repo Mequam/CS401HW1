@@ -36,7 +36,19 @@ public class DictionaryLL extends Dictionary {
     }
     @Override
     public Entry getEntry(String word) {
-            return new Entry("null","");
+            Entry ret_val = null;
+            Node<Entry> node = l.forEach((n)->{
+                if (n.getElement().word.equals(word)) {
+                    
+                    return true;
+                }
+                
+                return false;
+            });
+            
+            
+            ret_val = node.getElement();
+            return ret_val;
     }
     @Override
     public void addEntry(Entry entry) { 
