@@ -10,7 +10,7 @@ this is a simple set of dictionary programs
 in order to send and recive dictionary definitions
 over a network
 
-this program was created hw1 CS401 from SVSU
+this program was created for homework one of class CS401 at SVSU
 
 ---
 
