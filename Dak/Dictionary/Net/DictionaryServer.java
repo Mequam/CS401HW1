@@ -23,14 +23,18 @@ public class DictionaryServer extends Thread {
     DictionaryLL dictionary;
 
 
-    DictionaryServer(Socket s,File f) {
+    public DictionaryServer(Socket s,File f) {
         dictionary = new DictionaryLL(f);
         load_socket(s);
     }
 
 
-    DictionaryServer(Socket s,String dictionary_fpath) {
+    public DictionaryServer(Socket s,String dictionary_fpath) {
         dictionary = new DictionaryLL(dictionary_fpath);
+        load_socket(s);
+    }
+    public DictionaryServer(Socket s,DictionaryLL dll) {
+        dictionary = dll;
         load_socket(s);
     }
 

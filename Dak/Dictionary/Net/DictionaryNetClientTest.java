@@ -21,7 +21,7 @@ public class DictionaryNetClientTest {
                 query_word = sc.nextLine();
             }
 
-            DictionaryNetClient dnc = new DictionaryNetClient(new InetSocketAddress("localhost",2644)); 
+            DictionaryNetClient dnc = new DictionaryNetClient(new InetSocketAddress("localhost",8000)); 
             
             Entry ent = dnc.getEntry(query_word);
 
