@@ -36,6 +36,7 @@ In order to run the client and the server from the same terminal simply run
 if you want the server client running on different computers the following commands will run the client and server code respectivly
 
 > java Dak/CS401HW1/MainServer
+
 > java Dak/CS401HW1/MainClient
 
 
