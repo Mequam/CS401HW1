@@ -71,8 +71,7 @@ public class DictionaryServer extends Thread {
                     }
                 }
 
-            } catch (Exception e) {
-                System.out.println(e);
+            } catch (Exception e) { 
                 return; //stop execution of this thread
             }
         }

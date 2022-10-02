@@ -1,4 +1,4 @@
-package Dak.Dictionary.Net;
+package Dak.CS401HW1;
 
 
 import java.net.InetSocketAddress;
@@ -9,8 +9,9 @@ import java.net.InetSocketAddress;
 import java.util.*;
 
 import Dak.Dictionary.Dictionary.Entry;
+import Dak.Dictionary.Net.DictionaryNetClient;
 
-public class DictionaryNetClientTest {
+public class MainClient {
         public static void main(String [] args) {
             String query_word = "";
             if (args.length > 0) {
